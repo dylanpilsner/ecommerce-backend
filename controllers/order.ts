@@ -60,7 +60,7 @@ export async function updateOrderStatus(id: string) {
   const myOrder = new Order(orderId);
   await myOrder.pull();
 
-  if (order.order_status === "paid") {
+  if (order.status === "closed") {
     myOrder.data.status = "closed";
     const product = await Product.searchProductById(myOrder.data.productId);
     const vendor = new User(product.singleProduct.vendor_id);
