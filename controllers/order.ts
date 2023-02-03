@@ -64,6 +64,7 @@ export async function updateOrderStatus(id: string) {
     await vendor.pull();
     await myOrder.push();
     await sendOrderEmail(vendor.data.email, product.singleProduct.title);
+    return true;
   }
   if (order.order_status == "payment_required") {
     myOrder.data.status = "pending_payment";
@@ -73,4 +74,5 @@ export async function updateOrderStatus(id: string) {
     myOrder.data.status = "processing_payment";
     await myOrder.push();
   }
+  return;
 }
