@@ -22,6 +22,7 @@ mercadopago.configure({
 
 export async function getMerchantOrder(id) {
   const merchantOrder = await mercadopago.merchant_orders.get(id);
+  console.log(merchantOrder.body);
 
   return merchantOrder.body;
 }
