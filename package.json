@@ -1,0 +1,35 @@
+{
+  "name": "ecommerce-backend",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "ava",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "airtable": "^0.11.6",
+    "algoliasearch": "^4.14.3",
+    "date-fns": "^2.29.3",
+    "firebase-admin": "^11.5.0",
+    "jsonwebtoken": "^9.0.0",
+    "mercadopago": "^1.5.14",
+    "micro-method-router": "^0.1.0",
+    "next": "^13.1.6",
+    "parse-bearer-token": "^1.0.1",
+    "random-seed": "^0.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sib-api-v3-typescript": "^2.2.2",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.18",
+    "@types/react": "18.0.27",
+    "typescript": "4.9.4"
+  }
+}
