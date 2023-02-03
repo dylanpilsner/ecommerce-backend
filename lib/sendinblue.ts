@@ -556,7 +556,7 @@ async function sendCodeEmail(code: number, receiver: string) {
 }
 
 async function sendOrderEmail(receiver: string, productTitle) {
-  sendSmtpEmail.subject = "Tu código para ingresar";
+  sendSmtpEmail.subject = "Nueva venta";
   sendSmtpEmail.htmlContent = /*html*/ `
   <html
   xmlns="http://www.w3.org/1999/xhtml"
@@ -899,7 +899,7 @@ async function sendOrderEmail(receiver: string, productTitle) {
                                         line-height: 35.2px;
                                       "
                                       >Reibiste la compra de el/los producto(s)
-                                      que te mostramos a continuación.</span
+                                      que te detallamos a continuación.</span
                                     >
                                   </p>
                                 </div>
@@ -1028,7 +1028,7 @@ async function sendOrderEmail(receiver: string, productTitle) {
                                         font-size: 18px;
                                         line-height: 28.8px;
                                       "
-                                      >¡Muchas gracias!</span
+                                      >Recordá preparar el producto para enviarlo a tiempo, ¡Muchas gracias!</span
                                     >
                                   </p>
                                 </div>
