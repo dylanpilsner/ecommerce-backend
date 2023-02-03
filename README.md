@@ -10,4 +10,5 @@ https://backend-ecommerce-tau.vercel.app/api/
     
 ## Tech Stack
 
-Node, Typescript, Next, Firebase, Algolia, Airtable, Mercado Pago
+**Server:** Node, Next, Vercel, Firebae, Airtable, Algolia, MVC, Serverless, YUP, JWT,
+DATE-FNS, mercadopago
