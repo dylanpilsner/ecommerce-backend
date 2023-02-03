@@ -48,7 +48,7 @@ export async function searchProducts(
 export async function getProductById(id: string) {
   const product = new Product();
 
-  const foundProduct = await product.searchProductById(id);
+  const foundProduct = await Product.searchProductById(id);
 
   return foundProduct;
 }
