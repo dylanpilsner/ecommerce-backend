@@ -10,4 +10,5 @@ export default async function getHandler(
     await updateOrderStatus(id as string);
     return res.send({ message: "mercadopago webhook has done its job" });
   }
+  return;
 }
