@@ -1,6 +1,4 @@
 import { updateOrderStatus } from "controllers/order";
-import { getMerchantOrder } from "lib/mercadopago";
-import { Order } from "models/order";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function getHandler(
