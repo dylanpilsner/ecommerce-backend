@@ -35,7 +35,7 @@ export async function createOrder(
       },
     ],
     notification_url:
-      "https://ecommerce-backend-indol.vercel.app/api/ipn/mercadopago",
+      "https://webhook.site/d8fd6bb9-2bbb-442f-898c-2febd98e009f",
     back_urls: {
       success: "https://apx.school",
     },
@@ -60,7 +60,7 @@ export async function updateOrderStatus(id: string) {
   const myOrder = new Order(orderId);
   await myOrder.pull();
 
-  if (order.order_status == "paid") {
+  if (order.order_status === "paid") {
     myOrder.data.status = "closed";
     const product = await Product.searchProductById(myOrder.data.productId);
     const vendor = new User(product.singleProduct.vendor_id);
@@ -68,6 +68,7 @@ export async function updateOrderStatus(id: string) {
     await vendor.pull();
     await buyer.pull();
     await myOrder.push();
+
     await sendNewSaleNotification(
       vendor.data.email,
       product.singleProduct.title
