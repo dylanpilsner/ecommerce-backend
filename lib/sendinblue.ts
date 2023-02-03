@@ -1,10 +1,17 @@
-import * as SibApiV3Sdk from "sib-api-v3-typescript";
+// import * as SibApiV3Sdk from "sib-api-v3-typescript";
+import * as SibApiV3Sdk from "@sendinblue/client";
 
 let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi() as any;
+// let apiInstance = new SibApiV3Sdk.AccountApi();
 
 let apiKey = apiInstance.authentications["apiKey"];
 
 apiKey.apiKey = process.env.SENDINBLUE_API_KEY;
+
+// apiInstance.setApiKey(
+//   SibApiV3Sdk.AccountApiApiKeys.apiKey,
+//   process.env.SENDINBLUE_API_KEY
+// );
 
 let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
 
