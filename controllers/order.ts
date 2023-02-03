@@ -60,22 +60,26 @@ export async function updateOrderStatus(id: string) {
   const myOrder = new Order(orderId);
   await myOrder.pull();
 
-  if (order.status === "closed") {
-    myOrder.data.status = "closed";
+  if (order.order_status === "paid") {
     const product = await Product.searchProductById(myOrder.data.productId);
     const vendor = new User(product.singleProduct.vendor_id);
     const buyer = new User(myOrder.data.userId);
     await vendor.pull();
     await buyer.pull();
+    if (myOrder.data.status != "closed") {
+      await sendNewSaleNotification(
+        vendor.data.email,
+        product.singleProduct.title
+      );
+      await sendPurchaseConfirmation(
+        buyer.data.email,
+        product.singleProduct.title
+      );
+    }
+
+    myOrder.data.status = "closed";
     await myOrder.push();
-    await sendNewSaleNotification(
-      vendor.data.email,
-      product.singleProduct.title
-    );
-    await sendPurchaseConfirmation(
-      buyer.data.email,
-      product.singleProduct.title
-    );
+
     return true;
   }
   if (order.order_status === "payment_required") {
