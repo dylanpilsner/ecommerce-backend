@@ -8,7 +8,7 @@ export default async function getHandler(
 ) {
   const { id, topic } = req.query;
   if (topic == "merchant_order") {
-    const order = await getMerchantOrder(id);
+    const order = await getMerchantOrder(id as string);
     if (order.order_status == "paid") {
       const orderId = order.external_reference;
       const myOrder = new Order(orderId);
