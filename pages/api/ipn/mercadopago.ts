@@ -8,6 +8,6 @@ export default async function getHandler(
   const { id, topic } = req.query;
   if (topic == "merchant_order") {
     await updateOrderStatus(id as string);
+    return res.send({ message: "mercadopago webhook has done its job" });
   }
-  return res.send({ message: "mercadopago webhook has done its job" });
 }
