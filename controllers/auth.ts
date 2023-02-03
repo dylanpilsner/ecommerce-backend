@@ -1,6 +1,6 @@
 import { Auth } from "../models/auth";
 import { User } from "../models/user";
-import { sendSmtpEmail, apiInstance, codeMailHTML } from "lib/sendinblue";
+import { sendCodeEmail } from "lib/sendinblue";
 import addMinutes from "date-fns/addMinutes";
 import { generateToken } from "lib/jwt";
 
@@ -51,26 +51,8 @@ export async function sendCode(email: string): Promise<any> {
   await auth.push();
 
   // Mail al usuario
-
-  sendSmtpEmail.subject = "Tu código para ingresar";
-  sendSmtpEmail.htmlContent = codeMailHTML(code);
-
-  sendSmtpEmail.sender = {
-    name: "Dylan",
-    email: "dylan.pilsner@gmail.com",
-  };
-  sendSmtpEmail.to = [{ email: cleanEmail }];
-  sendSmtpEmail.replyTo = {
-    name: "Dylan",
-    email: "dylan.pilsner@gmail.com",
-  };
-
-  try {
-    await apiInstance.sendTransacEmail(sendSmtpEmail);
-    return true;
-  } catch (err) {
-    return { err };
-  }
+  await sendCodeEmail(code, cleanEmail);
+  return true;
 }
 
 export async function signIn(email: string, code: number) {

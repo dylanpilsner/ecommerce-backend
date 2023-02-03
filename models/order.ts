@@ -35,4 +35,17 @@ export class Order {
     newOrder.data = data;
     return newOrder;
   }
+
+  static async searchMyOrders(id: string) {
+    const results = await collection.where("userId", "==", id).get();
+    if (results.empty) {
+      return;
+    } else {
+      const docs = results.docs;
+      const dataDocs = docs.map((d) => {
+        return d.data();
+      });
+      return dataDocs;
+    }
+  }
 }

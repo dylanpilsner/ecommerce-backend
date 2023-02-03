@@ -1,6 +1,8 @@
-import { createPreference } from "lib/mercadopago";
+import { createPreference, getMerchantOrder } from "lib/mercadopago";
+import { sendOrderEmail } from "lib/sendinblue";
 import { Order } from "models/order";
 import { Product } from "models/product";
+import { User } from "models/user";
 
 export async function createOrder(
   userId: string,
@@ -30,11 +32,45 @@ export async function createOrder(
       },
     ],
     notification_url:
-      "https://ecommerce-backend-indol.vercel.app/api/webhooks/mercadopago",
+      "https://ecommerce-backend-indol.vercel.app/api/ipn/mercadopago",
     back_urls: {
       success: "https://apx.school",
     },
   });
 
   return { url: pref.init_point };
+}
+
+export async function getMyOrders(id: string) {
+  const myOrders = await Order.searchMyOrders(id);
+
+  if (!myOrders) {
+    return { message: "this user has no orders" };
+  }
+
+  return myOrders;
+}
+
+export async function updateOrderStatus(id: string) {
+  const order = await getMerchantOrder(id);
+  const orderId = order.external_reference;
+  const myOrder = new Order(orderId);
+  await myOrder.pull();
+
+  if (order.order_status == "paid") {
+    myOrder.data.status = "closed";
+    const product = await Product.searchProductById(myOrder.data.productId);
+    const vendor = new User(product.singleProduct.vendor_id);
+    await vendor.pull();
+    await myOrder.push();
+    await sendOrderEmail(vendor.data.email, product.singleProduct.title);
+  }
+  if (order.order_status == "payment_required") {
+    myOrder.data.status = "pending_payment";
+    await myOrder.push();
+  }
+  if (order.order_status == "payment_in_process") {
+    myOrder.data.status = "processing_payment";
+    await myOrder.push();
+  }
 }
