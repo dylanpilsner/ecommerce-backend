@@ -1,5 +1,8 @@
 import { createPreference, getMerchantOrder } from "lib/mercadopago";
-import { sendOrderEmail } from "lib/sendinblue";
+import {
+  sendNewSaleNotification,
+  sendPurchaseConfirmation,
+} from "lib/sendinblue";
 import { Order } from "models/order";
 import { Product } from "models/product";
 import { User } from "models/user";
@@ -61,9 +64,18 @@ export async function updateOrderStatus(id: string) {
     myOrder.data.status = "closed";
     const product = await Product.searchProductById(myOrder.data.productId);
     const vendor = new User(product.singleProduct.vendor_id);
+    const buyer = new User(myOrder.data.userId);
     await vendor.pull();
+    await buyer.pull();
     await myOrder.push();
-    await sendOrderEmail(vendor.data.email, product.singleProduct.title);
+    await sendNewSaleNotification(
+      vendor.data.email,
+      product.singleProduct.title
+    );
+    await sendPurchaseConfirmation(
+      buyer.data.email,
+      product.singleProduct.title
+    );
     return true;
   }
   if (order.order_status == "payment_required") {
