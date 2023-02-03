@@ -8,13 +8,29 @@
     "build": "next build",
     "start": "next"
   },
+  "type": "module",
+  "ava": {
+    "nodeArguments": [
+      "--loader=@esbuild-kit/esm-loader",
+      "--experimental-specifier-resolution=node"
+    ],
+    "environmentVariables": {
+      "TESTING": "true",
+      "JWT_SECRET": "9809890809809890890"
+    },
+    "extensions": {
+      "ts": "module"
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@esbuild-kit/esm-loader": "^2.5.4",
     "@sendinblue/client": "^3.1.0",
     "airtable": "^0.11.6",
     "algoliasearch": "^4.14.3",
+    "ava": "^5.1.1",
     "date-fns": "^2.29.3",
     "firebase-admin": "^11.5.0",
     "jsonwebtoken": "^9.0.0",
