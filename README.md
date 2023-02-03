@@ -6,7 +6,7 @@ Backend (API Rest) Serverless construido en Node, Next y arquitectura MVC, donde
 https://backend-ecommerce-tau.vercel.app/api/
 
 ## Postman documentation
-[Doc](https://documenter.getpostman.com/view/16920219/UzBiRV9Z#0cf01dd8-3f7e-4a29-8784-776b108a4ec6)
+[Doc](https://documenter.getpostman.com/view/19369798/2s935mtRAJ)
     
 ## Tech Stack
 
