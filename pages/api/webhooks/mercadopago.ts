@@ -9,11 +9,19 @@ export default async function getHandler(
   const { id, topic } = req.query;
   if (topic == "merchant_order") {
     const order = await getMerchantOrder(id);
+    const orderId = order.external_reference;
+    const myOrder = new Order(orderId);
+    await myOrder.pull();
     if (order.order_status == "paid") {
-      const orderId = order.external_reference;
-      const myOrder = new Order(orderId);
-      await myOrder.pull();
       myOrder.data.status = "closed";
+      await myOrder.push();
+    }
+    if (order.order_status == "payment_required") {
+      myOrder.data.status = "pending_payment";
+      await myOrder.push();
+    }
+    if (order.order_status == "payment_in_process") {
+      myOrder.data.status = "processing_payment";
       await myOrder.push();
     }
   }
