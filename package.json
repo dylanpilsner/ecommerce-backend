@@ -25,7 +25,6 @@
     "random-seed": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sib-api-v3-typescript": "^2.2.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {

@@ -30,7 +30,7 @@ export async function createOrder(
       },
     ],
     notification_url:
-      "https://mp-integration.vercel.app/api/webhooks/mercadopago",
+      "https://ecommerce-backend-indol.vercel.app/api/webhooks/mercadopago",
     back_urls: {
       success: "https://apx.school",
     },
