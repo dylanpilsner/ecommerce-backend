@@ -9,7 +9,7 @@ apiKey.apiKey = process.env.SENDINBLUE_API_KEY;
 let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
 
 function codeMailHTML(code: number) {
-  return `
+  return /*html*/ `
   <html
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:v="urn:schemas-microsoft-com:vml"

@@ -1,5 +1,8 @@
 import algoliasearch from "algoliasearch";
 
-const client = algoliasearch("F8WG38ZBKR", "4455eefc97ef103a948459f1d1067cd3");
+const client = algoliasearch(
+  process.env.ALGOLIA_API_ID,
+  process.env.ALGOLIA_API_KEY
+);
 
 export const productsIndex = client.initIndex("products");
