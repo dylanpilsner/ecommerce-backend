@@ -35,7 +35,7 @@ export async function createOrder(
       },
     ],
     notification_url:
-      "https://webhook.site/d8fd6bb9-2bbb-442f-898c-2febd98e009f",
+      "https://ecommerce-backend-indol.vercel.app/api/ipn/mercadopago",
     back_urls: {
       success: "https://apx.school",
     },
@@ -68,7 +68,6 @@ export async function updateOrderStatus(id: string) {
     await vendor.pull();
     await buyer.pull();
     await myOrder.push();
-
     await sendNewSaleNotification(
       vendor.data.email,
       product.singleProduct.title
@@ -79,11 +78,11 @@ export async function updateOrderStatus(id: string) {
     );
     return true;
   }
-  if (order.order_status == "payment_required") {
+  if (order.order_status === "payment_required") {
     myOrder.data.status = "pending_payment";
     await myOrder.push();
   }
-  if (order.order_status == "payment_in_process") {
+  if (order.order_status === "payment_in_process") {
     myOrder.data.status = "processing_payment";
     await myOrder.push();
   }
