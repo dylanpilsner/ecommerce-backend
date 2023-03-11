@@ -1,5 +1,5 @@
 import { getMyOrders } from "controllers/order";
-import { authMiddleware } from "lib/middlewares";
+import { authMiddleware, handlerCORS } from "lib/middlewares";
 import methods from "micro-method-router";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -15,6 +15,8 @@ async function getHandler(
 
 const authorizedGetHandler = authMiddleware(getHandler);
 
-export default methods({
+const handler = methods({
   get: authorizedGetHandler,
 });
+
+export default handlerCORS(handler);

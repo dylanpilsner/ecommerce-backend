@@ -1,7 +1,7 @@
 import { searchProducts } from "controllers/product";
 import * as yup from "yup";
 import methods from "micro-method-router";
-import { schemaMiddleware } from "lib/middlewares";
+import { handlerCORS, schemaMiddleware } from "lib/middlewares";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const querySchema = yup
@@ -29,6 +29,8 @@ const validatedGetHandlerSchema = schemaMiddleware(
   "query"
 );
 
-export default methods({
+const handler = methods({
   get: validatedGetHandlerSchema,
 });
+
+export default handlerCORS(handler);

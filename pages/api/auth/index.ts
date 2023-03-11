@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { sendCode } from "controllers/auth";
 import methods from "micro-method-router";
 import * as yup from "yup";
-import { schemaMiddleware } from "lib/middlewares";
+import { handlerCORS, schemaMiddleware } from "lib/middlewares";
 
 const signSchema = yup
   .object()
@@ -26,6 +26,8 @@ const postHandlerWithSchemaValidation = schemaMiddleware(
   "body"
 );
 
-export default methods({
+const handler = methods({
   post: postHandlerWithSchemaValidation,
 });
+
+export default handlerCORS(handler);

@@ -1,5 +1,5 @@
 import { signIn } from "controllers/auth";
-import { schemaMiddleware } from "lib/middlewares";
+import { handlerCORS, schemaMiddleware } from "lib/middlewares";
 import methods from "micro-method-router";
 import { NextApiRequest, NextApiResponse } from "next";
 import * as yup from "yup";
@@ -13,7 +13,7 @@ const validationSchema = yup
   .noUnknown()
   .strict();
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function postHandler(req: NextApiRequest, res: NextApiResponse) {
   const { email, code } = req.body;
 
   try {
@@ -26,10 +26,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 const postHandlerWithSchemaValidation = schemaMiddleware(
   validationSchema,
-  handler,
+  postHandler,
   "body"
 );
 
-export default methods({
+const handler = methods({
   post: postHandlerWithSchemaValidation,
 });
+
+export default handlerCORS(handler);

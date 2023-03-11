@@ -2,7 +2,7 @@ import { createOrder } from "controllers/order";
 import { NextApiRequest, NextApiResponse } from "next";
 import methods from "micro-method-router";
 import * as yup from "yup";
-import { authMiddleware, schemaMiddleware } from "lib/middlewares";
+import { authMiddleware, handlerCORS, schemaMiddleware } from "lib/middlewares";
 
 const querySchema = yup
   .object()
@@ -54,6 +54,8 @@ const validatedPostHandlerQueryAndBodySchema = schemaMiddleware(
   "body"
 );
 
-export default methods({
+const handler = methods({
   post: validatedPostHandlerQueryAndBodySchema,
 });
+
+export default handlerCORS(handler);

@@ -1,5 +1,5 @@
 import { pullProfileData, updateProfileData } from "controllers/user";
-import { authMiddleware, schemaMiddleware } from "lib/middlewares";
+import { authMiddleware, handlerCORS, schemaMiddleware } from "lib/middlewares";
 import methods from "micro-method-router";
 import { NextApiRequest, NextApiResponse } from "next";
 import * as yup from "yup";
@@ -41,7 +41,9 @@ const validatedAuthorizedPatchHandlerSchema = schemaMiddleware(
   "body"
 );
 
-export default methods({
+const handler = methods({
   get: authorizedGetHandler,
   patch: validatedAuthorizedPatchHandlerSchema,
 });
+
+export default handlerCORS(handler);

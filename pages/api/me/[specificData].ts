@@ -1,5 +1,5 @@
 import { updateSingleData } from "controllers/user";
-import { authMiddleware, schemaMiddleware } from "lib/middlewares";
+import { authMiddleware, handlerCORS, schemaMiddleware } from "lib/middlewares";
 import methods from "micro-method-router";
 import { NextApiRequest, NextApiResponse } from "next";
 import * as yup from "yup";
@@ -51,6 +51,8 @@ const validatedBodyAuthorizedPostHandlerSchema = schemaMiddleware(
   "body"
 );
 
-export default methods({
+const handler = methods({
   patch: validatedBodyAuthorizedPostHandlerSchema,
 });
+
+export default handlerCORS(handler);
