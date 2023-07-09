@@ -35,7 +35,7 @@ async function putHandler(req: NextApiRequest, res: NextApiResponse, token) {
 
 const authorizedGetHandler = authMiddleware(getHandler);
 const authorizedPutHandler = authMiddleware(putHandler);
-const validatedAuthorizedPatchHandlerSchema = schemaMiddleware(
+const validatedAuthorizedPutHandlerSchema = schemaMiddleware(
   updateProfileSchema,
   authorizedPutHandler,
   "body"
@@ -43,7 +43,7 @@ const validatedAuthorizedPatchHandlerSchema = schemaMiddleware(
 
 const handler = methods({
   get: authorizedGetHandler,
-  patch: validatedAuthorizedPatchHandlerSchema,
+  put: validatedAuthorizedPutHandlerSchema,
 });
 
 export default handlerCORS(handler);
