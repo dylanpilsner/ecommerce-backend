@@ -1,3 +1,4 @@
+import { log } from "console";
 import { airtableBase } from "lib/airtable";
 import { productsIndex } from "lib/algolia";
 import { Product } from "models/product";

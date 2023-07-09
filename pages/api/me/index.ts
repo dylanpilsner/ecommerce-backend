@@ -27,17 +27,17 @@ async function getHandler(req: NextApiRequest, res: NextApiResponse, token) {
   return res.send(data);
 }
 
-async function patchHandler(req: NextApiRequest, res: NextApiResponse, token) {
+async function putHandler(req: NextApiRequest, res: NextApiResponse, token) {
   const updatedData = await updateProfileData(token, req.body);
 
   return res.send(updatedData);
 }
 
 const authorizedGetHandler = authMiddleware(getHandler);
-const authorizedPatchHandler = authMiddleware(patchHandler);
+const authorizedPutHandler = authMiddleware(putHandler);
 const validatedAuthorizedPatchHandlerSchema = schemaMiddleware(
   updateProfileSchema,
-  authorizedPatchHandler,
+  authorizedPutHandler,
   "body"
 );
 
