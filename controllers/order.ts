@@ -37,8 +37,9 @@ export async function createOrder(
     notification_url:
       "https://ecommerce-backend-indol.vercel.app/api/ipn/mercadopago",
     back_urls: {
-      success: "https://apx.school",
+      success: "https://ecommerce-frontend-seven-lovat.vercel.app/thanks",
     },
+    auto_return: "approved",
   });
 
   return { url: pref.init_point };

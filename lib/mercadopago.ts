@@ -14,6 +14,7 @@ type preferenceData = {
   back_urls: {
     success: string;
   };
+  auto_return: string;
 };
 
 mercadopago.configure({
